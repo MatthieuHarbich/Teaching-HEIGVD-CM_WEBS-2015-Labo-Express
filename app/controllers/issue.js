@@ -31,4 +31,10 @@ router.route('/')
 		});
 	})
 
+	.post(function (req, res, next){
+		var issue = new Issue({
+			
+		})
+	})
+
 	
