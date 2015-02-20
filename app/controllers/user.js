@@ -17,7 +17,7 @@ function convertMongoUser(user) {
 		lastname: user.lastname,
 		phone: user.phone,
 		roles: user.roles
-	}
+	};
 }
 
 router.route('/')
@@ -39,6 +39,10 @@ router.route('/')
 		});
 
 		user.save(function(err, userSaved) {
+                    console.log("coucou");
+//                    if(err!==undefined){
+//                        res.status(500);
+//                    }
 			res.status(201).json(convertMongoUser(userSaved));
 		});
 	});
