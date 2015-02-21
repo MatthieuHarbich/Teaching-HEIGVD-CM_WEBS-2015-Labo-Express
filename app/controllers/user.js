@@ -32,7 +32,7 @@ router.route('/')
 
 	.post(function (req, res, next) {
 		var user = new User({
-			firstname: req.body.firstname,
+			author: req.body.firstname,
 			lastname: req.body.lastname,
 			phone: req.body.phone,
 			roles: req.body.roles
