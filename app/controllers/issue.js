@@ -13,7 +13,7 @@ function convertMongoIssue(issue) {
 	//return user.toObject({ transform: true })
 	return {
 		id: issue.id,
-		author: user.firstname,
+		
 		lastname: user.lastname,
 		phone: user.phone,
 		roles: user.roles
