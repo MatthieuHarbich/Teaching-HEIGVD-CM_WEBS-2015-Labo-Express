@@ -27,7 +27,7 @@ var config = {
       name: 'experiments'
     },
     port: process.env.PORT,
-    db: process.env.MONGODB_CON_STRING
+    db: process.env.MONGOLAB_URI
   }
 };
 
