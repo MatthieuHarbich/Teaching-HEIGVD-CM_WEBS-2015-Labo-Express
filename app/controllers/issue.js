@@ -25,6 +25,7 @@ function convertMongoIssue(issue) {
 		comments: Comment
 	}
 }
+
 router.route('/')
 
 	.get(function(req, res, next) {
