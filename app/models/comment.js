@@ -1,15 +1,10 @@
 var mongoose = require('mongoose'),
   Schema = mongoose.Schema;
 
-var IssueSchema = new Schema({
+var CommentSchema = new Schema({
   author: { type: Schema.Types.ObjectId, ref: 'User'},
-  issueType: { type: Schema.Types.ObjectId, ref: 'IssueType'},
-  description: String,
-  longitude: String,
-  latitude: String,
-  status: String,
-  comments: [{ type: Schema.Types.ObjectId, ref: 'Comment'}]
-	
+  date: { type: Date, default: Date.now },
+  content: String	
 });
 
 
@@ -29,10 +24,7 @@ var IssueSchema = new Schema({
 //	delete ret['__v'];
 //}
 
-IssueSchema.virtual('date')
-  .get(function(){
-    return this._id.getTimestamp();
-  });
 
-mongoose.model('Issue', IssueSchema);
+
+mongoose.model('Comment', CommentSchema);
 
