@@ -103,7 +103,7 @@ router.route('/')
 				var lat = req.query.lat;
 				var lng = req.query.lng;
 		
-				decorate(Issue.where('latitude').gt(lat - ray).lt((lat*1) + ray).where("longitude").gt(lng - ray).lt((lng*1) + ray).find(function(err, issues){
+				decorate(Issue.where('latitude').gt(lat - ray).lt((lat*1) + (ray*1)).where("longitude").gt(lng - ray).lt((lng*1) + (ray*1)).find(function(err, issues){
 					//console.log(issues);
 					if(err) return next(err);
 
