@@ -31,7 +31,9 @@ var
   			var issueType = new IssueType({
                         //id: req.body.id,
 			name: req.body.name,
+
 			description: req.body.description
+
   			});
                 
                 issueType.save(function(err, issueTypeSaved) {
@@ -48,8 +50,11 @@ var
                 
   router.route('/:id')
 	.get(function(req, res, next) {
+
 		IssueType.findById(req.params.id, function(err, issueType) {
 			res.json(convertMongoIssueType(issueType));
+
+
 		});
 	})
 

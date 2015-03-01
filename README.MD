@@ -1,6 +1,6 @@
 ## Romain Cerantola & Matthieu Harbich
 
-### Heroku domain: https://rocky-forest-1588.herokuapp.com 
+### Heroku domain: https://mighty-hamlet-9493.herokuapp.com/
 
 # Smart City - Citizen Engagement - Express Skeleton
 
