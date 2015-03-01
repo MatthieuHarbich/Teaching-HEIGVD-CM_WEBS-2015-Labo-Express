@@ -1,22 +1,11 @@
-  var mongoose = require('mongoose'),
+var mongoose = require('mongoose'),
   Schema = mongoose.Schema;
 
-  var CommentSchema = mongoose.model('Comment').schema;
-
-
-var IssueSchema = new Schema({
-  author: {type:Schema.Types.ObjectId, ref: "User"},
-  issueType: {type:Schema.Types.ObjectId, ref: "IssueType"},
-  createdAt: {type: Date, default: Date.now },
-  solvedAt: {type: Date, default: null },
-  description: String,  
-  assign: {type:Schema.Types.ObjectId, ref: "User"},
-  longitude: Number,
-  latitude: Number,
-  status: String,
-  tags:[String],
-	comments: [CommentSchema]
+var ActionTypeSchema = new Schema({
+  id: Number,
+  description: String	
 });
+
 
 // Example of how we can use mongoose to transform data from the DB into
 // an object we can use. It's a sort of Entity <-> TO transformation
@@ -36,5 +25,5 @@ var IssueSchema = new Schema({
 
 
 
-mongoose.model('Issue', IssueSchema);
+mongoose.model('ActionType', ActionTypeSchema);
 

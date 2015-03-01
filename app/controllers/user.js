@@ -9,6 +9,10 @@ module.exports = function (app) {
   app.use('/api/users', router);
 };
 
+function isInArray(value, array) {
+  return array.indexOf(value) > -1;
+};
+
 function convertMongoUser(user) {
 	//return user.toObject({ transform: true })
 	return {
@@ -17,17 +21,42 @@ function convertMongoUser(user) {
 		lastname: user.lastname,
 		phone: user.phone,
 		roles: user.roles
-	}
+	};
 }
 
 router.route('/')
 	.get(function(req, res, next) {
-		User.find(function (err, users) {
-		  if (err) return next(err);
-		  res.json(_.map(users, function(user) {
-				return convertMongoUser(user);
-			}));
-		});
+
+		if(isInArray("query", Object.keys(req.query))){
+
+			var query = req.query.query;
+
+			switch(query){
+				case "createdMostIssues":
+					
+					
+					break;
+				case "solvedMostIssues":
+					
+					break;
+				case "dd":
+					
+
+					break;
+				default:
+
+
+			}
+
+		}else{
+			User.find(function (err, users) {
+			  if (err) return next(err);
+			  res.json(_.map(users, function(user) {
+					return convertMongoUser(user);
+				}));
+			});
+		}
+		
 	})
 
 	.post(function (req, res, next) {
@@ -39,6 +68,10 @@ router.route('/')
 		});
 
 		user.save(function(err, userSaved) {
+                    console.log("coucou");
+//                    if(err!==undefined){
+//                        res.status(500);
+//                    }
 			res.status(201).json(convertMongoUser(userSaved));
 		});
 	});
