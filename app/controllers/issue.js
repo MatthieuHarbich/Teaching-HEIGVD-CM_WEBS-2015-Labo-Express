@@ -81,14 +81,14 @@ router.route('/')
 			}));
 
 
-			//res.json("filtered user ");
+			
 		} else if(isInArray("type", Object.keys(req.query))){
 			var type = req.query.type;
 			
 	
 	
 			decorate(Issue.where('issueType', type).find(function(err, issues){
-				//console.log(issues);
+				
 				if(err) return next(err);
 
 				res.json(_.map(issues, function(issue) {
@@ -98,7 +98,20 @@ router.route('/')
 
 		}else if(isInArray("lng", Object.keys(req.query)) && isInArray("lat", Object.keys(req.query)) ){
 			if(isInArray("rayon", Object.keys(req.query))){
-				// peut-être faire un peu de math pour gérer un perimetre autour d'un point
+				var ray = req.query.rayon;
+
+				var lat = req.query.lat;
+				var lng = req.query.lng;
+		
+				decorate(Issue.where('latitude').gt(lat - ray).lt((lat*1) + ray).where("longitude").gt(lng - ray).lt((lng*1) + ray).find(function(err, issues){
+					//console.log(issues);
+					if(err) return next(err);
+
+					res.json(_.map(issues, function(issue) {
+						return convertMongoIssue(issue);
+					}));
+				}));
+			}
 			}else{
 				var lat = req.query.lat;
 				var lng = req.query.lng;
@@ -254,6 +267,7 @@ router.route('/:id/action')
 							if(err)return console.log("error");
 							
 							comment.save(function(err, commentSaved){
+								action.save();
 				       			issue.comments.push(commentSaved.id);
 				       			res.json(convertMongoIssue(issue));
 				       		})
@@ -261,7 +275,7 @@ router.route('/:id/action')
 					);
 		        break; 
 		    default:
-		        // Raise an error, actionType not found
+		        
 		} 
 		
 
@@ -269,7 +283,7 @@ router.route('/:id/action')
 		//console.log(comment.content);
 		console.log(req.params.id);
 	})
-	
+
 
 	.put(function(req, res, next){
 		var action = new Action({
@@ -321,53 +335,13 @@ router.route('/:id/action')
 
 				console.log(issue);
 					issue.save(function(err, issueSaved){
-						
+						action.save();
 						res.json(convertMongoIssue(issueSaved));
 					});
-				//issue.update({status:"Solved"}, {status: "now"});
-
-				
-				
-
-
-				// if(issue.status == "Sdolved"){
-				// 	return res.json({
-				// 		"error":"issue already solved"
-				// 	})
-				// }else{
-
-				// 	issue.update({},{$set:{status: "Solved", solvedAt: now}}, function(err, issue){
-				// 		console.log(issue);
-				// 		return res.json("jdlksa");
-				// 	});
-				// }
+			
 				
 			});
 
-			// Issue.findByIdAndUpdate(req.params.id, {status : "Solved"}, {solvedAt: now, status: "Solved"}, function(err, issue){
-
-
-				
-				
-
-			// 	issue.save(function(err, issueSaved){
-			// 		res.json(convertMongoIssue(issueSaved));
-			// 	});
-
-
-			// 	// issue.update({},{$set: {solvedAt: now}},{uspert: true}, function(err, thisIssue){
-			// 	// 	if(err) return console.log(err);
-			// 	// 	console.log(thisIssue);
-			// 	// 	thisIssue.save(function(err, issueSaved){
-			// 	// 		res.json(convertMongoIssue(issueSaved));
-			// 	// 	});
-			// 	// }); 
-
-				
-
-				
-				
-			// })
 
 				break;
 			case "assignIssue":
@@ -384,6 +358,7 @@ router.route('/:id/action')
 
 						issue.save(function(err, issueSaved){
 						if(err) return console.log("erreur" + err);
+							action.save();
 							res.json(convertMongoIssue(issueSaved));
 						});
 					}else{
@@ -406,6 +381,7 @@ router.route('/:id/action')
 				console.log(issue);
 
 				issue.save(function(err, issueSaved){
+					action.save();
 					res.json(convertMongoIssue(issueSaved));
 				});
 			}) 

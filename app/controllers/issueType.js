@@ -29,22 +29,16 @@ var
 
   		.post(function(req, res, next){
   			var issueType = new IssueType({
-                        //id: req.body.id,
-			name: req.body.name,
-
-			description: req.body.description
+                       
+    			name: req.body.name,
+    			description: req.body.description
 
   			});
                 
-                issueType.save(function(err, issueTypeSaved) {
-//			if(err!==undefined){//essayer une chaine de plus de 32 cara et documenter
-//                          console.log("coucou");// res.status(500);
-//                        }else{
-                         res.status(201).json(convertMongoIssueType(issueTypeSaved));   
-//                        }
-                        
-                        
-		});
+        issueType.save(function(err, issueTypeSaved) {
+             res.status(201).json(convertMongoIssueType(issueTypeSaved));   
+               
+        });
                 
   		});
                 
@@ -59,20 +53,18 @@ var
 	})
 
 	.put(function(req, res, next) {
-		User.findById(req.params.id, function(err, user) {
-			user.firstname = req.body.firstname;
-			user.lastname = req.body.lastname;
-			user.phone = req.body.phone;
-			user.roles = req.body.roles;
+		IssueType.findById(req.params.id, function(err, issueType) {
+			issueType.name = req.body.name;
+			issueType.description = req.body.description;
 
-			user.save(function(err, userSaved) {
-				res.json(convertMongoUser(userSaved));
+			issueType.save(function(err, issueTypeSaved) {
+				res.json(convertMongoUser(issueTypeSaved));
 			});
 		});
 	})
 
 	.delete(function(req, res, next) {
-		User.findByIdAndRemove(req.params.id, function(err) {
+		IssueType.findByIdAndRemove(req.params.id, function(err) {
 			res.status(204).end();
 		});
 	});
