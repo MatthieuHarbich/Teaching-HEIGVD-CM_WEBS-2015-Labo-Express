@@ -269,6 +269,7 @@ router.route('/:id/action')
 		//console.log(comment.content);
 		console.log(req.params.id);
 	})
+	
 
 	.put(function(req, res, next){
 		var action = new Action({
