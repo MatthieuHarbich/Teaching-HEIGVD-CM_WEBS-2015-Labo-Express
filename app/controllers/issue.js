@@ -113,10 +113,10 @@ router.route('/')
 				}));
 			}
 			
-		}else if(isInArray("sd1", Object.keys(req.query)) && isInArray("sd2", Object.keys(req.query)) ){
+		}else if(isInArray("sdStart", Object.keys(req.query)) && isInArray("sdEnd", Object.keys(req.query)) ){
 							
-				var d1 = req.query.sd1.split("-");
-				var d2 = req.query.sd2.split("-");
+				var d1 = req.query.sdStart.split("-");
+				var d2 = req.query.sdEnd.split("-");
 
 				var startD = d1[0];
 				var startM = d1[1] - 1;
@@ -140,10 +140,10 @@ router.route('/')
 					}));
 				}));	
 			
-			}else if(isInArray("cd1", Object.keys(req.query)) && isInArray("cd2", Object.keys(req.query)) ){
+			}else if(isInArray("cdStart", Object.keys(req.query)) && isInArray("cdEnd", Object.keys(req.query)) ){
 							
-				var d1 = req.query.cd1.split("-");
-				var d2 = req.query.cd2.split("-");
+				var d1 = req.query.cdStart.split("-");
+				var d2 = req.query.cdEnd.split("-");
 
 				var startD = d1[0];
 				var startM = d1[1] - 1;
@@ -379,7 +379,7 @@ router.route('/:id/action')
 
 					if(isStaff >= 0){
 					 	issue.assign = req.body.assignId;
-						issue.status = "assigned";
+						issue.status = "Assigned";
 
 						issue.save(function(err, issueSaved){
 						if(err) return console.log("erreur" + err);
