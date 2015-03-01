@@ -111,7 +111,7 @@ router.route('/')
 						return convertMongoIssue(issue);
 					}));
 				}));
-			}
+			
 			}else{
 				var lat = req.query.lat;
 				var lng = req.query.lng;
